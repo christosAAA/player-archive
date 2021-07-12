@@ -3,8 +3,16 @@ import classes from "./landingPage.module.css";
 import { playerObjData } from "./types";
 import { axiosResponse } from "./utils/axiosResponse";
 import { createActivePlayer } from "./utils/createActivePlayer";
+import ToggleSwitch from "./ToggleSwitch/ToggleSwitch";
+import Title from "./Title/Title";
+import InputField from "./InputField/InputField";
+import PlayerDetails from "./PlayerDetails/PlayerDetails";
+import Message from "./Message/Message";
+
 const dataApiBase = "https://web-sandbox.onefootball.com/assignments/player/data/";
 const profileApiBase = "https://web-sandbox.onefootball.com/assignments/player/profile/";
+
+const uiState = "secondary";
 
 const LandingPage = () => {
   const [searchInput, setSearchInput] = useState("");
@@ -25,7 +33,8 @@ const LandingPage = () => {
 
   const submitHandler = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    searchInput: string
+    searchInput: string,
+    axiosResponse: any
   ) => {
     e.preventDefault();
     // Returns the player's data if the player exists otherwise returns false
@@ -46,47 +55,23 @@ const LandingPage = () => {
   };
 
   return (
-    <div>
-      <h1>Player Archive</h1>
-      <h2>Search</h2>
-      <form action="reset">
-        <div
-          style={{
-            border: " 1px solid #adb5bd",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between"
-          }}
-        >
-          <input
-            type="text"
-            className={classes.searchInput}
-            onChange={(e) => {
-              onChange(e);
-            }}
-            id="lname"
-            name="searchInput"
-            defaultValue="Enter player's id"
-          />
-          <button onClick={(e) => submitHandler(e, searchInput)}>GO</button>
-        </div>
-      </form>
-      {playerIsActive ? (
-        <div>
-            <img src={playerDetails.picture} alt=""/>
-          <div>
-            <h3>Id: {playerDetails.id}</h3>
-            <h3>Active: {playerDetails.active}</h3>
-          </div>
-          <div>
-            <h3>Age: {playerDetails.age}</h3>
-            <h3>Role: {playerDetails.role}</h3>
-            <h3>Team: {playerDetails.team}</h3>
-          </div>
-        </div>
-      ) : (
-        <h1>{displayMessage}</h1>
-      )}
+    <div id="landingPageContainer" className={classes.LandingPageContainer}>
+      <div className={classes.contentContainer}>
+        <ToggleSwitch />
+        <Title title={"Player Archive"} state={uiState} />
+        <InputField
+          searchInput={searchInput}
+          axiosResponse={axiosResponse}
+          onChange={onChange}
+          submitHandler={submitHandler}
+          state={uiState}
+        />
+        {playerIsActive ? (
+          <PlayerDetails {...playerDetails} />
+        ) : (
+          <Message title={displayMessage} state={uiState} />
+        )}
+      </div>
     </div>
   );
 };

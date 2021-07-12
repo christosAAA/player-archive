@@ -1,8 +1,16 @@
-.searchInput {
-    width:100%;
-    border:none;
+.LandingPageContainer {
+  display: flex;
+  min-height: 100vh;
+  margin: 0 auto;
+  width: 500px;
 }
 
-.searchInput:focus {
-    outline: none !important;
-   }
+.contentContainer {
+  width: 100%;
+}
+
+@media (max-width: 600px) {
+  .LandingPageContainer {
+    width: 100%;
+  }
+}
