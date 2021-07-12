@@ -13,10 +13,9 @@ This repository consists of a client application:
 
 - `client` - React client, written in Typescript. The app is only functional with this specific dataset. 
 
-- Tests
-Tests have been implemented for different item types that our application receives from the API.
+- Tests have been implemented for different item types that our application receives from the API.
 
-- Responsive and configurable ui
+- Responsive and configurable ui:
 The application is fully responsive.
 Configurable ui for the user(light/dark mode).
 Configurable ui for the developer through configUI file with primary and secondary format for purposes like A/B testing. 
