@@ -57,7 +57,9 @@ export type profileApiType = {
 };
 
 export const isDataApiType = (data: any): data is dataApiType => {
-  return (
+  if(data === null) {
+    return false
+  } else return (
     typeof data === "object" &&
     typeof data.id === "string" &&
     !!data.id &&
@@ -69,7 +71,9 @@ export const isDataApiType = (data: any): data is dataApiType => {
 };
 
 export const isProfileApiType = (data: any): data is profileApiType => {
-  return (
+  if(data === null) {
+    return false
+  } else return (
     typeof data === "object" &&
     typeof data.id === "string" &&
     !!data.id &&

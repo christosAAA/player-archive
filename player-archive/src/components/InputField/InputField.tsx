@@ -1,12 +1,10 @@
 import React from "react";
 import classes from "./InputField.module.css";
-import {dataApiType,profileApiType} from '../types'
 
 export default function InputField(props: {
   searchInput: string;
-  // axiosResponse: dataApiType | profileApiType;
-  onChange: any;
-  submitHandler: any;
+  onChange: Function;
+  submitHandler: Function;
   state: string;
 }) {
   let className = "";

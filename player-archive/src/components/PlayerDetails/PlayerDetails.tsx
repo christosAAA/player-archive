@@ -1,7 +1,7 @@
 import React from "react";
 import SubText from "../SubText/SubText";
 import classes from "./PlayerDetails.module.css";
-import {playerObjData }from '../types'
+import { playerObjData } from "../types/types";
 
 export default function PlayerDetails(playerDetails: playerObjData) {
   return (

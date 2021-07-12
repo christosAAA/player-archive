@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import classes from "./landingPage.module.css";
-import { playerObjData } from "./types";
+import { playerObjData } from "./types/types";
 import { axiosResponse } from "./utils/axiosResponse";
 import { createActivePlayer } from "./utils/createActivePlayer";
 import ToggleSwitch from "./ToggleSwitch/ToggleSwitch";
@@ -9,14 +9,17 @@ import InputField from "./InputField/InputField";
 import PlayerDetails from "./PlayerDetails/PlayerDetails";
 import Message from "./Message/Message";
 import { uiState } from "./configUI";
-import { isDataApiType} from "./types";
-// const dataApiBase = "https://web-sandbox.onefootball.com/assignments/player/data/";
-// const profileApiBase = "https://web-sandbox.onefootball.com/assignments/player/profile/";
+import { isDataApiType } from "./types/types";
+
+const apiBaseData = "http://localhost:80/data/";
+const apiBaseProfile = "http://localhost:80/profile/";
 
 const LandingPage = () => {
   const [searchInput, setSearchInput] = useState("");
-  const [displayMessage, setDisplayMessage] = useState("");
-  const [playerIsActive, setplayerIsActive] = useState(false);
+  const [stateData, setStateData] = useState({
+    displayMessage: "",
+    playerIsActive: false
+  });
   const [playerDetails, setPlayerDetails] = useState<playerObjData>({
     id: "",
     active: "",
@@ -33,31 +36,30 @@ const LandingPage = () => {
   const submitHandler = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     searchInput: string
-    // axiosResponse: (apiBase: string, playerName: string)=>Promise<dataApiType | profileApiType>
   ) => {
     e.preventDefault();
     // Returns the player's data if the player exists otherwise returns false
-    const responseDataApi = await axiosResponse("http://localhost:80/data/", searchInput); //dataApiBase
-
+    const responseDataApi = await axiosResponse(apiBaseData, searchInput);
+    // Type guard
     if (isDataApiType(responseDataApi)) {
       if (responseDataApi.active === "true") {
-        const player = await createActivePlayer(
-          "http://localhost:80/profile/",
-          responseDataApi
-        ); //profileApiBase
+        const player = await createActivePlayer(apiBaseProfile, responseDataApi);
 
         if (player) {
-          setplayerIsActive(true);
+          setStateData({ displayMessage: "", playerIsActive: true });
           setPlayerDetails(player);
-          setDisplayMessage("");
         }
       } else if (responseDataApi.active === "false") {
-        setplayerIsActive(false);
-        setDisplayMessage("the player is not available");
+        setStateData({
+          displayMessage: "the player is not available",
+          playerIsActive: false
+        });
       }
     } else {
-      setplayerIsActive(false);
-      setDisplayMessage("please enter a valid player's id");
+      setStateData({
+        displayMessage: "please enter a valid player's id",
+        playerIsActive: false
+      });
     }
   };
 
@@ -72,10 +74,10 @@ const LandingPage = () => {
           submitHandler={submitHandler}
           state={uiState}
         />
-        {playerIsActive ? (
+        {stateData.playerIsActive ? (
           <PlayerDetails {...playerDetails} />
         ) : (
-          <Message title={displayMessage} state={uiState} />
+          <Message title={stateData.displayMessage} state={uiState} />
         )}
       </div>
     </div>
