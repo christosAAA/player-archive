@@ -1,7 +1,7 @@
 # player-archive
 ---
-An application that displays information data for players such as age, role etc. 
-The data is derived from a sample database and was actualized for the completion of a coding challenge. 
+An application that displays information for athletes such as age, role etc. 
+The data been fetched from a sample database and was actualized for the completion of a coding challenge. 
  
 Implementation time: about 30 hours from scratch.
  
@@ -9,20 +9,20 @@ Implementation time: about 30 hours from scratch.
 ---
 This repository consists of a client application:
  
-- `backend` - express server written with Typescript, fetching data from json files. Data entries been copied from the given samle APIs and served under /data and /profile routes.
+- `backend` - express server written in Typescript, fetching data from json files. Data entries been copied from the given samle APIs and served under /data and /profile routes.
 
-- `client` - React client, written in Typescript. The data is being from a given sample API. The app is only functional with this specific dataset. 
+- `client` - React client, written in Typescript. The app is only functional with this specific dataset. 
 
 - Tests
-Tests have been implimented for different item types that our application receives from the API.
+Tests have been implemented for different item types that our application receives from the API.
 
 - Responsive and configurable ui
 The application is fully responsive.
 Configurable ui for the user(light/dark mode).
-Configurable ui for the developer throught configUI file with primary and secondary format for purposes like A/B testing. 
+Configurable ui for the developer through configUI file with primary and secondary format for purposes like A/B testing. 
 
 - Host and serve the profile data/profile with a nodejs server
-- In the production build, the react been served from the same backend server.
+- In the production build, the react app been served from the same backend server.
  
 - Acceptance criteria:
 Type "fabio" in the form, the player with id fabio and its profile are displayed.
