@@ -9,7 +9,6 @@ export default function ToggleSwitch() {
     document.body.classList.remove(`${classes.darkMode}`);
     document.body.classList.add(`${classes.whiteMode}`);
     if (playerContainer) {
-      console.log(playerContainer);
       playerContainer.classList.add(`${classes.whiteMode}`);
       playerContainer.classList.remove(`${classes.darkModePlayerContainer}`);
     }
@@ -17,7 +16,6 @@ export default function ToggleSwitch() {
     document.body.classList.remove(`${classes.whiteMode}`);
     document.body.classList.add(`${classes.darkMode}`);
     if (playerContainer) {
-      console.log(playerContainer);
       playerContainer.classList.remove(`${classes.whiteMode}`);
       playerContainer.classList.add(`${classes.darkModePlayerContainer}`);
     }

@@ -1,9 +1,10 @@
 import React from "react";
 import classes from "./InputField.module.css";
+import {dataApiType,profileApiType} from '../types'
 
 export default function InputField(props: {
   searchInput: string;
-  axiosResponse: any;
+  // axiosResponse: dataApiType | profileApiType;
   onChange: any;
   submitHandler: any;
   state: string;
@@ -30,7 +31,7 @@ export default function InputField(props: {
         />
         <button
           className={`${classes.buttonGo} ${className}`}
-          onClick={(e) => props.submitHandler(e, props.searchInput, props.axiosResponse)}
+          onClick={(e) => props.submitHandler(e, props.searchInput)}
         >
           Go
         </button>

@@ -1,8 +1,9 @@
 import React from "react";
 import SubText from "../SubText/SubText";
 import classes from "./PlayerDetails.module.css";
+import {playerObjData }from '../types'
 
-export default function PlayerDetails(playerDetails: any) {
+export default function PlayerDetails(playerDetails: playerObjData) {
   return (
     <div id="playerContainer" className={classes.playerContainer}>
       <img src={playerDetails.picture} alt="" />

@@ -8,11 +8,10 @@ import Title from "./Title/Title";
 import InputField from "./InputField/InputField";
 import PlayerDetails from "./PlayerDetails/PlayerDetails";
 import Message from "./Message/Message";
-
-const dataApiBase = "https://web-sandbox.onefootball.com/assignments/player/data/";
-const profileApiBase = "https://web-sandbox.onefootball.com/assignments/player/profile/";
-
-const uiState = "secondary";
+import { uiState } from "./configUI";
+import { isDataApiType} from "./types";
+// const dataApiBase = "https://web-sandbox.onefootball.com/assignments/player/data/";
+// const profileApiBase = "https://web-sandbox.onefootball.com/assignments/player/profile/";
 
 const LandingPage = () => {
   const [searchInput, setSearchInput] = useState("");
@@ -33,22 +32,30 @@ const LandingPage = () => {
 
   const submitHandler = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    searchInput: string,
-    axiosResponse: any
+    searchInput: string
+    // axiosResponse: (apiBase: string, playerName: string)=>Promise<dataApiType | profileApiType>
   ) => {
     e.preventDefault();
     // Returns the player's data if the player exists otherwise returns false
-    const responseDataApi = await axiosResponse(dataApiBase, searchInput);
+    const responseDataApi = await axiosResponse("http://localhost:80/data/", searchInput); //dataApiBase
 
-    if (responseDataApi.active === "true") {
-      const player = await createActivePlayer(profileApiBase, responseDataApi);
-      setplayerIsActive(true);
-      setPlayerDetails(player);
-      setDisplayMessage("");
-    } else if (responseDataApi.active === "false") {
-      setplayerIsActive(false);
-      setDisplayMessage("the player is not available");
-    } else if (!responseDataApi) {
+    if (isDataApiType(responseDataApi)) {
+      if (responseDataApi.active === "true") {
+        const player = await createActivePlayer(
+          "http://localhost:80/profile/",
+          responseDataApi
+        ); //profileApiBase
+
+        if (player) {
+          setplayerIsActive(true);
+          setPlayerDetails(player);
+          setDisplayMessage("");
+        }
+      } else if (responseDataApi.active === "false") {
+        setplayerIsActive(false);
+        setDisplayMessage("the player is not available");
+      }
+    } else {
       setplayerIsActive(false);
       setDisplayMessage("please enter a valid player's id");
     }
@@ -61,7 +68,6 @@ const LandingPage = () => {
         <Title title={"Player Archive"} state={uiState} />
         <InputField
           searchInput={searchInput}
-          axiosResponse={axiosResponse}
           onChange={onChange}
           submitHandler={submitHandler}
           state={uiState}

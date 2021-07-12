@@ -1,5 +1,4 @@
 import axios from "axios";
-
 // This function is been use for both APIs
 // If the user exists returns the data
 // If user doesn't exist in the the response is 403 so it returns false for further manipulation

@@ -1,4 +1,5 @@
 import { axiosResponse } from "./axiosResponse";
+import { isProfileApiType } from "../types";
 
 // Gets the base url for profile api and the object from data api
 // Returns an object with all the necessary information for the player
@@ -11,13 +12,15 @@ export const createActivePlayer = async (
     profileApiBase,
     responsePlayerId["profile-id"]
   );
-  const playerObj = {
-    id: responseProfileID.id,
-    active: responsePlayerId.active,
-    age: responseProfileID.profile.age,
-    role: responseProfileID.profile.role,
-    team: responseProfileID.profile.team,
-    picture: responseProfileID.profile.picture
-  };
-  return playerObj;
+  if (isProfileApiType(responseProfileID)) {
+    return {
+      id: responseProfileID.id,
+      active: responsePlayerId.active,
+      age: responseProfileID.profile.age,
+      role: responseProfileID.profile.role,
+      team: responseProfileID.profile.team,
+      picture: responseProfileID.profile.picture
+    };
+  }
+
 };
