@@ -11,8 +11,8 @@ import Message from "./Message/Message";
 import { uiState } from "./configUI";
 import { isDataApiType } from "./types/types";
 
-const apiBaseData = "http://localhost:80/data/";
-const apiBaseProfile = "http://localhost:80/profile/";
+const apiBaseData = "/data/";
+const apiBaseProfile = "/profile/";
 
 const LandingPage = () => {
   const [searchInput, setSearchInput] = useState("");
